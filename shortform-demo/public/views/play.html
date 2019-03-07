@@ -1,0 +1,25 @@
+<div id="playContainer">
+    <p class="center-xy txt-center" ng-if="!quizCtrl.loading && noWordsForReview">No words ready for review. Check back later. <a ng-click="getNextAvailableWord()">Refresh</a></p>
+
+    <div ng-if="quizCtrl.loading">
+        <p class="center-xy txt-center">Loading...</p>
+    </div>
+
+    <div ng-if="!quizCtrl.loading && quizCtrl.currentWord" class="card center-xy txt-center">
+        <h4 class="m20bottom">The current word is:</h4>
+        <h3 class="word">{{quizCtrl.currentWord.name}}</h3>
+
+        <div ng-if="!quizCtrl.revealed" class="m20xy">
+            <button ng-click="quizCtrl.revealed = true;" id="revealBtn" class="btn btn-default btn-med">Reveal Definition</button>
+        </div>
+        <div ng-if="quizCtrl.revealed" class="m20xy">
+            <p class="definition m20bottom">Defintion: {{quizCtrl.currentWord.definition}}</p>
+            <div class="flex justify-center">
+                <button ng-click="quizCtrl.markCorrect()" id="correctBtn" class="m10x btn btn-default btn-success">I got it.</button>
+                <button ng-click="quizCtrl.markWrong()" id="wrongBtn" class="m10x btn btn-default btn-danger">I did not get it.</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

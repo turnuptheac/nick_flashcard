@@ -1,0 +1,82 @@
+<div id="settingsContainer" class="p20xy">
+
+    <div id="addWordWrapper" class="card-container m20x m30bottom">
+        <h3 class="m15bottom">Add Words</h3>
+        <div class="">
+            <form ng-submit="newWordComposer.submit()">
+                <label for="name">Word</label>
+                <input required id="name" ng-model="newWordComposer.name" class="form-control" type="text"/>
+
+                <label class="m10top" for="definition">Definition</label>
+                <textarea required id="definition" ng-model="newWordComposer.definition" class="form-control"></textarea>
+                <!-- <textarea></textarea> -->
+
+                <div class="m20y txt-right">
+                    <button class="btn btn-primary btn-med" type="submit">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="wordsWrapper" class="card-container m20x m30bottom">
+        <h3 class="m15bottom">Words</h3>
+        <div class="table-responsive">
+            <table id="wordsTable" class="table">
+                <thead>
+                    <tr class="has-sortable-headers">
+                        <th class="no-sort numbering"></th>
+                        <th ng-click="sortByColumn('name')">
+                            Word
+                            <span class="ion" ng-show="isSortedBy('name')" ng-class="sortCaret()">
+                        </th>
+                        <th ng-click="sortByColumn('definition')">
+                            Definition
+                            <span class="ion" ng-show="isSortedBy('definition')" ng-class="sortCaret()">
+                        </th>
+                        <th class="txt-center" ng-click="sortByColumn('numCorrect')">
+                            # Correct
+                            <span class="ion" ng-show="isSortedBy('numCorrect')" ng-class="sortCaret()">
+                        </th>
+                        <th class="txt-center" ng-click="sortByColumn('numWrong')">
+                            # Wrong
+                            <span class="ion" ng-show="isSortedBy('numWrong')" ng-class="sortCaret()">
+                        </th>
+                        <th class="txt-center" ng-click="sortByColumn('currentBin')">
+                            Bin #
+                            <span class="ion" ng-show="isSortedBy('currentBin')" ng-class="sortCaret()">
+                        </th>
+                        <th ng-click="sortByColumn('nextReviewDate')">
+                            Next Review Date
+                            <span class="ion" ng-show="isSortedBy('nextReviewDate')" ng-class="sortCaret()">
+                        </th>
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="word in words | orderBy:sort.field:sort.reverse">
+                        <td class="txt-center txt-theme numbering">{{$index + 1}}</td>
+                        <td>{{word.name}}</td>
+                        <td>{{word.definition}}</td>
+                        
+                        <td class="txt-center">{{word.numCorrect}}</td>
+                        <td class="txt-center">{{word.numWrong}}</td>
+                        <td class="txt-center">{{word.currentBin}}</td>
+                        <td ng-class="{'txt-danger': isPastDate(word.nextReviewDate)}">{{formatLocalTime(word.nextReviewDate)}}</td>
+
+                        <td class="txt-right">
+                            <a class="delete-link" ng-click="deleteWord(word._id)"><i class="ion ion-android-delete"></i></a>
+                        </td>
+
+                        <td class="txt-right">
+                         <!--    <a ng-click="editWordComposer.select(word)" class=""><i class="ion ion-edit"></i></a> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
